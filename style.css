@@ -17,33 +17,42 @@
 }
 
 .current-time{
-    background-color: cornflowerblue;
+    background-color: #A5BCE6;
     padding: 2px;
     position: relative;
     top: -20px;
+    right: 10px;
 
 }
 
 .tijd-haltes{
     display: flex;
     flex-direction: row;
-    background-color: yellowgreen;
+    background-color:  #BAC454;
     justify-content: space-between;
-    width: 300px;
+    width: 290px;
 }
 
 .locatie-tijd{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 300px;
+    width: 290px;
 }
 
 .blue-spacer{
-    height: 60px;
-    background-color: cornflowerblue;
+    height: 80px;
+    background-color: #A5BCE6;
+}
+.green-spacer{
+    height: 10px;
+    background-color:  #BAC454;
 }
 
 .container{
     width: 300px;
+    border: solid 5px #3D3533;
+}
+.aankomst-bg{
+    background-color: #9A939C;
 }
