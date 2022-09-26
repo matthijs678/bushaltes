@@ -10,7 +10,9 @@ if (!$stmt) {
 $stmt->execute();
 $stmt->bind_result($address, $timeRelativeSeconds);
 
-$departure = new DateTime();
+$departure = new DateTime("now", new DateTimeZone("europe/amsterdam"));
+
+var_dump($departure);
 $data = [];
 
 while ($stmt->fetch()) {
@@ -24,6 +26,8 @@ while ($stmt->fetch()) {
         "clockTime" => $departure->format("H:i"),
     ]);
 }
+
+header("Refresh:20");
 ?>
 
 <!DOCTYPE html>
