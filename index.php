@@ -10,9 +10,19 @@ if (!$stmt) {
 $stmt->execute();
 $stmt->bind_result($address, $timeRelativeSeconds);
 
+$departure = new DateTime();
 $data = [];
+
 while ($stmt->fetch()) {
-    array_push($data, ["address" => $address, "timeRelativeSeconds" => $timeRelativeSeconds]);
+    // add time
+    $departure->setTimestamp($departure->getTimestamp() + $timeRelativeSeconds);
+
+    // store
+    array_push($data, [
+        "address" => $address,
+        "timeRelativeSeconds" => $timeRelativeSeconds,
+        "clockTime" => $departure->format("H:i"),
+    ]);
 }
 ?>
 
@@ -27,9 +37,13 @@ while ($stmt->fetch()) {
 <body>
     <div style="display: flex; flex-direction: column; width: 40ch;">
         <?php
-        foreach ($data as $v) {
-            echo "<div>" . $v["address"] . "; " . $v["timeRelativeSeconds"] . "</div>";
+        for ($i = 0; $i < count($data) - 1; $i++) {
+            $v = $data[$i];
+            echo "<div>" . $v["address"] . "; " . $v["clockTime"] . "</div>";
         }
+        $last = $data[count($data) - 1];
+        echo "<div style='margin-top: 1em;'>Aankomt eindbestemming:</div>";
+        echo "<div>" . $last["address"] . "; " . $last["clockTime"] ."</div>"
         ?>
     </div>
 </body>
