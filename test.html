@@ -23,7 +23,10 @@
     
                 return response.json();
             })
-            .then(callback);
+            .then(callback)
+            .catch((reason) => {
+                console.error(reason);
+            });
         }
 
         window.setInterval(request, 20000, updateContent);
