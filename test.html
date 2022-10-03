@@ -10,17 +10,21 @@
     <script>
         function updateContent(json) {
             // gebruik deze functie om de haltes te vernieuwen
+            for (i = 0; i < json.length; i++) {
+                console.log(json[i]);
+            }
             console.log(json);
         }
 
-        const myRequest = new Request('/getBusStops.php');
+        // const myRequest = new Request('/getBusStops.php');
+
         function request(callback) {
-            window.fetch(myRequest)
+            window.fetch("/getBusStops.php")
             .then((response, ...a) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-    
+
                 return response.json();
             })
             .then(callback)

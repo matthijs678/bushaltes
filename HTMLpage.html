@@ -6,6 +6,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<script>
+    function updateContent(json) {
+        // gebruik deze functie om de haltes te vernieuwen
+        for (i = 0; i < json.length; i++) {
+            console.log(json[i]);
+        }
+        console.log(json);
+    }
+
+    // const myRequest = new Request('/getBusStops.php');
+
+    function request(callback) {
+        window.fetch("/getBusStops.php")
+            .then((response, ...a) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                return response.json();
+            })
+            .then(callback)
+            .catch((reason) => {
+                console.error(reason);
+            });
+    }
+
+    window.setInterval(request, 20000, updateContent);
+    request(updateContent);
+</script>
+
 <div class="container">
     <div class="h1">
         <div>Eerstvolgende haltes</div>
