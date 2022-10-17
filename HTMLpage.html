@@ -9,10 +9,17 @@
 <script>
     function updateContent(json) {
         // gebruik deze functie om de haltes te vernieuwen
-        for (i = 0; i < json.length; i++) {
-            console.log(json[i]);
+        let html = "";
+        for (let halte of json) {
+            html += `<div class="locatie-tijd">
+                <div>${halte["address"]}</div>
+                <div>${halte["clockTime"]}</div>
+            </div>`;
         }
-        console.log(json);
+
+        for (let parent of document.querySelectorAll(".locaties-tijden")) {
+            parent.innerHTML = html;
+        }
     }
 
     // const myRequest = new Request('/getBusStops.php');
@@ -26,10 +33,7 @@
 
                 return response.json();
             })
-            .then(callback)
-            .catch((reason) => {
-                console.error(reason);
-            });
+            .then(callback);
     }
 
     window.setInterval(request, 20000, updateContent);
@@ -41,37 +45,18 @@
         <div>Eerstvolgende haltes</div>
         <div class="current-time">16:45</div>
     </div>
-
+    
     <div class="tijd-haltes">
         <div>haltes</div>
         <div>Aankomst</div>
     </div>
-
-    <div class="locatie-tijd">
-        <div>Sneeuwbalstraat</div>
-        <div>16:58</div>
+    <div class="locaties-tijden">
     </div>
 
-    <div class="locatie-tijd">
-        <div>Mosplein</div>
-        <div>17:01</div>
-    </div>
-
-    <div class="locatie-tijd">
-        <div>IJtunnel</div>
-        <div>17:04</div>
-    </div>
-
-    <div class="locatie-tijd">
-        <div>Prins Hendrikkade</div>
-        <div>17:08</div>
-    </div>
-
-    <div class="blue-spacer"></div>
     <div class="green-spacer"></div>
     <div  class="aankomst-bg">Aankomst bestemming:</div>
 
-   <div class="locatie-tijd">
+   <div class="locatie-tijd locatie-eind">
        <div>Amsterdam Centraal</div>
        <div>17:10</div>
    </div>
