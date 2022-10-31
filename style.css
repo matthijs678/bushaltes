@@ -1,0 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family: "Open sans", sans-serif;
+
+}
+
+.h1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    width: 300px;
+}
+
+#clock{
+    background-color: #A5BCE6;
+    padding: 5px;
+    position: relative;
+    top: -20px;
+    right: 10px;
+}
+
+.tijd-haltes{
+    display: flex;
+    flex-direction: row;
+    background-color: #BAC454;
+    justify-content: space-between;
+    width: 290px;
+}
+
+.locatie-tijd{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #FFFFFF;
+}
+
+.locaties-tijden {
+    height: 160px;
+    background-color: #A5BCE6;
+    overflow: hidden;
+}
+
+.green-spacer{
+    height: 10px;
+    background-color:  #BAC454;
+}
+
+.container{
+    width: 300px;
+    border: solid 5px #3D3533;
+}
+.aankomst-bg{
+    background-color: #9A939C;
+}

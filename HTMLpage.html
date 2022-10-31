@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<script>
+    function updateContent(json) {
+        const haltes = json["times"];
+        const last = json["last"];
+
+        // gebruik deze functie om de haltes te vernieuwen
+        let html = "";
+        for (let halte of haltes) {
+            html += `<div class="locatie-tijd">
+                <div>${halte["address"]}</div>
+                <div>${halte["clockTime"]}</div>
+                </div>`;
+        }
+
+        let html2 = `<div class="locatie-tijd">
+            <div>${last["address"]}</div>
+            <div>${last["clockTime"]}</div>
+        </div>`;
+
+        for (let parent of document.querySelectorAll(".locaties-tijden")) {
+            parent.innerHTML = html;
+        }
+        for (let parent of document.querySelectorAll(".locatie-eind")) {
+            parent.innerHTML = html2;
+        }
+    }
+
+    // const myRequest = new Request('/getBusStops.php');
+
+    function request(callback) {
+        window.fetch("/getBusStops.php")
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                return response.json();
+            })
+            .then(callback);
+    }
+
+    window.setInterval(request, 20000, updateContent);
+    request(updateContent);
+
+    const timeDisplay = document.getElementById("time");
+
+    function currentTime() {
+        let date = new Date();
+        let hh = date.getHours();
+        let mm = date.getMinutes();
+        // let session = "AM";
+
+        hh = (hh < 10) ? "0" + hh : hh;
+        mm = (mm < 10) ? "0" + mm : mm;
+
+        let time = hh + ":" + mm + " ";
+
+        document.getElementById("clock").innerText = time;
+        let t = setTimeout(function(){ currentTime() }, 1000);
+    }
+    setInterval(currentTime, 1000);
+</script>
+
+<div class="container">
+    <div class="h1">
+        <div>Eerstvolgende haltes</div>
+        <div id="clock" onload="currentTime()"></div>
+    </div>
+    
+    <div class="tijd-haltes">
+        <div>haltes</div>
+        <div>Aankomst</div>
+    </div>
+    <div class="locaties-tijden">
+    </div>
+
+    <div class="green-spacer"></div>
+    <div  class="aankomst-bg">Aankomst bestemming:</div>
+
+   <div class="locatie-tijd locatie-eind">
+       <div>Amsterdam Centraal</div>
+       <div>17:10</div>
+   </div>
+</div>
+</body>
+</html>
