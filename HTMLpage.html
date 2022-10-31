@@ -8,17 +8,28 @@
 <body>
 <script>
     function updateContent(json) {
+        const haltes = json["times"];
+        const last = json["last"];
+
         // gebruik deze functie om de haltes te vernieuwen
         let html = "";
-        for (let halte of json) {
+        for (let halte of haltes) {
             html += `<div class="locatie-tijd">
                 <div>${halte["address"]}</div>
                 <div>${halte["clockTime"]}</div>
-            </div>`;
+                </div>`;
         }
+
+        let html2 = `<div class="locatie-tijd">
+            <div>${last["address"]}</div>
+            <div>${last["clockTime"]}</div>
+        </div>`;
 
         for (let parent of document.querySelectorAll(".locaties-tijden")) {
             parent.innerHTML = html;
+        }
+        for (let parent of document.querySelectorAll(".locatie-eind")) {
+            parent.innerHTML = html2;
         }
     }
 
@@ -26,7 +37,7 @@
 
     function request(callback) {
         window.fetch("/getBusStops.php")
-            .then((response, ...a) => {
+            .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }

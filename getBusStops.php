@@ -37,10 +37,18 @@ $stmt->bind_result($address, $timeRelativeSeconds);
 // get times data (start at next stop)
 $now = (new DateTime("now", $dateTimeZone))->getTimestamp();
 $times = [];
+$last;
 while ($stmt->fetch()) {
     // add time
     $timestamp = $departure->getTimestamp() + $timeRelativeSeconds;
     $departure->setTimestamp($timestamp);
+
+    $stop = [
+        "address" => $address,
+        "timeRelativeSeconds" => $timeRelativeSeconds,
+        "clockTime" => $departure->format("H:i"),
+    ];
+    $last = $stop;
 
     // passed this stop?
     if ($timestamp < $now) {
@@ -48,11 +56,7 @@ while ($stmt->fetch()) {
     }
     
     // store
-    array_push($times, [
-        "address" => $address,
-        "timeRelativeSeconds" => $timeRelativeSeconds,
-        "clockTime" => $departure->format("H:i"),
-    ]);
+    array_push($times, $stop);
 }
 
 // close
@@ -60,4 +64,7 @@ $stmt->close();
 $sqli->close();
 
 // return
-echo json_encode($times);
+echo json_encode([
+    "times" => $times,
+    "last" => $last,
+]);
