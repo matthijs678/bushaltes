@@ -16,13 +16,12 @@
     width: 300px;
 }
 
-.current-time{
+#clock{
     background-color: #A5BCE6;
-    padding: 2px;
+    padding: 5px;
     position: relative;
     top: -20px;
     right: 10px;
-
 }
 
 .tijd-haltes{

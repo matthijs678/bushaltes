@@ -49,12 +49,30 @@
 
     window.setInterval(request, 20000, updateContent);
     request(updateContent);
+
+    const timeDisplay = document.getElementById("time");
+
+    function currentTime() {
+        let date = new Date();
+        let hh = date.getHours();
+        let mm = date.getMinutes();
+        // let session = "AM";
+
+        hh = (hh < 10) ? "0" + hh : hh;
+        mm = (mm < 10) ? "0" + mm : mm;
+
+        let time = hh + ":" + mm + " ";
+
+        document.getElementById("clock").innerText = time;
+        let t = setTimeout(function(){ currentTime() }, 1000);
+    }
+    setInterval(currentTime, 1000);
 </script>
 
 <div class="container">
     <div class="h1">
         <div>Eerstvolgende haltes</div>
-        <div class="current-time">16:45</div>
+        <div id="clock" onload="currentTime()"></div>
     </div>
     
     <div class="tijd-haltes">
